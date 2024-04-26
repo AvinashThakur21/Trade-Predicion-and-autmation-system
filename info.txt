@@ -1,0 +1,7 @@
+1.*  Setup (* means complited)
+2.*  Configre app wih django 
+3.* Create model ( only col ) , contraints , rel ,keys ... remaining 
+4. Create home page view in app and redirect link their
+
+
+ . Complte Model contraints , rel ,keys ... remaining 
