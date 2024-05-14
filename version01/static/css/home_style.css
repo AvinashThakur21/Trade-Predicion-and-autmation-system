@@ -1,7 +1,134 @@
 body{
-    background-color: blue;
-    color: black;
+    background-color: #3c9bd6df;
+    color: rgb(255, 255, 255);
 }
-h1 {
-    color: brown;
+
+body header{
+
+    display:flex;
+    margin-top:2%;
+    text-decoration:none;
+   
+}
+
+body header div{
+    border: solid;
+    border-width: 1px;
+    border-color: white;
+}
+
+#main_button{
+    display:flex;
+    padding-right:13%;
+    
+}
+#main_button button{
+    margin-top: 7%;
+    margin-bottom: 7%;
+    margin-left:15%;
+    margin-right:15%;
+    padding-left: 50%;
+    padding-right: 50%;
+}
+#main_button label{
+    margin-top:10%;
+    margin-bottom: 10%;
+    margin-left:2%;
+}
+#user_account{
+
+    margin-left:auto;
+    margin-right:1%;
+    color: white;
+}
+#user_account {
+    display:flex;
+}
+#user_account div a{
+    display:block;
+}
+
+/* Link Tab styling */
+#link_tabs{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+
+#link_tabs a {
+    border:solid;
+    border-color: white;
+    border-width: 1px;
+    margin-top:5%;
+    /* flex:0 0; */
+    text-align: center;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+    
+
+
+
+#history {
+    flex-basis: 25%;
+    border-radius: 20px 0px 0px 20px;
+
+}
+
+
+#ongoing{
+    flex-basis:50%;
+}
+
+#upcoming {
+    flex-basis: 25%;
+    border-radius:0px 20px  20px 0px;
+} 
+
+/* working here */
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* gap: 10px; */
+    margin-top: 3%;
+    
+    
+  }
+  
+  .grid-item {
+    background-color: rgba(85, 98, 103, 0);
+    text-align: center;
+    padding: 20px;
+    border: solid;
+    border-width: 1px;
+  }
+  
+  .header {
+    font-weight: bold;
+  }
+  
+
+/* experimenta */
+
+  
+  .key,
+  .value {
+    background-color: rgba(41, 33, 33, 0);
+    padding: 5px;
+  }
+  
+  .key {
+    font-weight: bold;
+  }
+  
+  .value {
+    font-style: italic;
+  }
+
+.grid-item div {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
 }

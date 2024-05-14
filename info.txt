@@ -1,7 +1,11 @@
 1.*  Setup (* means complited)
 2.*  Configre app wih django 
 3.* Create model ( only col ) , contraints , rel ,keys ... remaining 
-4. Create home page view in app and redirect link their
-
+4.* Create home page view in app and redirect link their
+5. getting model output entry , sl and target and passing to home page -- first get history 
 
  . Complte Model contraints , rel ,keys ... remaining 
+
+
+what is flex: 0 0; do ?
+

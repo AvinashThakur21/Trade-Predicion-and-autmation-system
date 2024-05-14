@@ -42,15 +42,6 @@ class user(models.Model):
     def __str__(self):
         return str('user_username')
     
-class fin_account(models.Model):
-    wallet_id = models.AutoField(primary_key=True)
-    total_ammount = models.FloatField()
-    total_loss = models.FloatField()
-    total_pnl = models.FloatField()
-
-    def __str__(self):
-        return str('wallet_id')
-    
 class user_personalization(models.Model):
     user_id = models.OneToOneField(user,on_delete=models.CASCADE)
     auto_trading = models.BooleanField()

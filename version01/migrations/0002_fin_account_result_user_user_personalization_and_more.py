@@ -12,15 +12,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='fin_account',
-            fields=[
-                ('wallet_id', models.AutoField(primary_key=True, serialize=False)),
-                ('total_ammount', models.FloatField()),
-                ('total_loss', models.FloatField()),
-                ('total_pnl', models.FloatField()),
-            ],
-        ),
-        migrations.CreateModel(
             name='result',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
