@@ -28,10 +28,13 @@ scripts = ['INFY.NS','TCS.NS','360ONE.NS', '5PAISA.NS', 'AARTIDRUGS.NS', 'AARTII
            'ACI.NS', 'ADANIENSOL.NS', 'ADANIENT.NS', 'AETHER.NS', 
            'ADANIPORTS.NS', 'ADANIPOWER.NS', 'ADORWELD.NS', 'AEGISCHEM.NS']
 
-def give_me_zone(request):
+def give_me_zone(request,section):
 
         
     all_stock_result = []
+    all_history_trade = []
+    all_open_trade = []
+    all_upcoming_trade =[]
     for script in scripts:
         script = script.split('.')[0]
         print(script.upper(),end='\t')
@@ -46,12 +49,37 @@ def give_me_zone(request):
         
         
         all_trade_result = []
+        history_trade = []
+        open_trade = []
+        upcoming_trade =[]
+  
         for trade in all_zone:
             trade_result = check_trade_status2(trade)
             all_trade_result.append(trade_result)
+            
         #print(all_trade_result)
+        for trade in all_trade_result:
+            if trade[6] == 0 :
+                upcoming_trade.append(trade_result)
+            elif trade[6] == 1:
+                open_trade.append(trade_result)
+            else:
+                history_trade.append(trade_result)
+
+
         all_stock_result.append([script,all_trade_result])
-    context= dict(all_stock_result)
+        all_upcoming_trade.append([script,upcoming_trade])
+        all_open_trade.append([script,open_trade])
+        all_history_trade.append([script,history_trade])
+
+    # filter value based on close , open, upcoming 
+    if section == 'open':
+        context= dict(all_open_trade)
+    elif section == 'history':
+        context= dict(all_history_trade)
+    elif section == 'upcoming':
+        context= dict(all_upcoming_trade)
+    
     print(context)
     return render(request,'home.html',{'context': context})
 ''' context list like this
