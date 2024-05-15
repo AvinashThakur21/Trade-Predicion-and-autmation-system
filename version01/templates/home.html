@@ -11,6 +11,7 @@
     
 </head>
 <body>
+    
     <header>
         <div id="main_button">
             <label for="auto_trading">Auto_Trading</label>
@@ -37,137 +38,149 @@
       <!-- experimental -->
       <div class="grid-container">
         <div class="grid-item header">STOCK NAME</div>
-        <div class="grid-item header">Entry,Sl,Targe</div>
-        <div class="grid-item header">Quantity, Entry, Exit Date</div>
-        <div class="grid-item header">Result,PnL</div>
+        <div class="grid-item header">Trade Details</div>
+        <div class="grid-item header">Timing</div>
+        <div class="grid-item header">Result</div>
         
         <div class="grid-item">
           <div>
             <div class="key">Script</div>
-            <div class="value">{{ script }}</div>
+            <div class="value">INFY</div>
           </div>
           <div>
-            <div class="key">Loss</div>
-            <div class="value">{{ loss }}</div>
+            <div class="key"></div>
+            <div class="value"></div>
           </div>
           <div>
-            <div class="key">Profit</div>
-            <div class="value">{{ profit }}</div>
+            <div class="key"></div>
+            <div class="value"></div>
           </div>
         </div>
 
         <div class="grid-item">
             <div>
               <div class="key">Entry</div>
-              <div class="value">{{ tcs.tcs0.0 }}</div>
+              <div class="value">1379.8</div>
             </div>
             <div>
               <div class="key">Stoploss</div>
-              <div class="value">{{ tcs.tcs0.1 }}</div>
+              <div class="value">1361.0</div>
             </div>
             <div>
               <div class="key">Target</div>
-              <div class="value">{{ tcs.tcs0.2 }}</div>
+              <div class="value">1398.6</div>
+            </div>
+            <div>
+              <div class="key">Quantity</div>
+              <div class="value">26</div>
             </div>
           </div>
 
           <div class="grid-item">
             <div>
-              <div class="key">Quantity</div>
-              <div class="value">{{ tcs.tcs0.0 }}</div>
+              <div class="key">Current Status</div>
+              <div class="value">0</div>
             </div>
             <div>
               <div class="key">Entry Date</div>
-              <div class="value">Value 2</div>
+              <div class="value">2023-11-09</div>
             </div>
             <div>
               <div class="key">Exit Date</div>
-              <div class="value">Value 3</div>
+              <div class="value">2023-11-15</div>
             </div>
           </div>
 
 
           <div class="grid-item">
             <div>
-              <div class="key">Key 1</div>
-              <div class="value">Value 1</div>
+              <div class="key">Result </div>
+              <div class="value">0</div>
             </div>
             <div>
-              <div class="key">Key 2</div>
-              <div class="value">Value 2</div>
+              <div class="key">Net PnL</div>
+              <div class="value">0</div>
             </div>
             <div>
-              <div class="key">Key 3</div>
-              <div class="value">Value 3</div>
+              <div class="key"></div>
+              <div class="value"></div>
             </div>
           </div>
+<!-- ********************************************************************************************** -->
+          {% for script, entries in context.items %}
+            
 
+              {% for entry in entries %}
+               
+                <div class="grid-item">
+                  <div>
+                    <div class="key">Script</div>
+                    <div class="value">{{ script }}</div>
+                  </div>
+                  <div>
+                    <div class="key"></div>
+                    <div class="value"></div>
+                  </div>
+                  <div>
+                    <div class="key"></div>
+                    <div class="value"></div>
+                  </div>
+                </div>
 
-          <div class="grid-item">
-            <div>
-              <div class="key">Key 1</div>
-              <div class="value">Value 1</div>
-            </div>
-            <div>
-              <div class="key">Key 2</div>
-              <div class="value">Value 2</div>
-            </div>
-            <div>
-              <div class="key">Key 3</div>
-              <div class="value">Value 3</div>
-            </div>
-          </div>
-  
-          <div class="grid-item">
-              <div>
-                <div class="key">Key 1</div>
-                <div class="value">Value 1</div>
-              </div>
-              <div>
-                <div class="key">Key 2</div>
-                <div class="value">Value 2</div>
-              </div>
-              <div>
-                <div class="key">Key 3</div>
-                <div class="value">Value 3</div>
-              </div>
-            </div>
-  
-            <div class="grid-item">
-              <div>
-                <div class="key">Key 1</div>
-                <div class="value">Value 1</div>
-              </div>
-              <div>
-                <div class="key">Key 2</div>
-                <div class="value">Value 2</div>
-              </div>
-              <div>
-                <div class="key">Key 3</div>
-                <div class="value">Value 3</div>
-              </div>
-            </div>
-  
-  
-            <div class="grid-item">
-              <div>
-                <div class="key">Key 1</div>
-                <div class="value">Value 1</div>
-              </div>
-              <div>
-                <div class="key">Key 2</div>
-                <div class="value">Value 2</div>
-              </div>
-              <div>
-                <div class="key">Key 3</div>
-                <div class="value">Value 3</div>
-              </div>
-            </div>
+                <div class="grid-item">
+                  <div>
+                    <div class="key">Entry</div>
+                    <div class="value">{{ entry.0 }}</div>
+                  </div>
+                  <div>
+                    <div class="key">Stoploss</div>
+                    <div class="value">{{ entry.1 }}</div>
+                  </div>
+                  <div>
+                    <div class="key">Target</div>
+                    <div class="value">{{ entry.2 }}</div>
+                  </div>
+                  <div>
+                    <div class="key">Quantity</div>
+                    <div class="value">{{ entry.5 }}</div>
+                  </div>
+                </div>
 
-        
-        
-        <!-- Repeat similar structure for other grid items -->
-      </div>
+                <div class="grid-item">
+                  <div>
+                    <div class="key">Current Status</div>
+                    <div class="value">{{ entry.6 }}</div>
+                  </div>
+                  <div>
+                    <div class="key">Entry Date</div>
+                    <div class="value">{{ entry.7 }}</div>
+                  </div>
+                  <div>
+                    <div class="key">Exit Date</div>
+                    <div class="value">{{ entry.8 }}</div>
+                  </div>
+                </div>
       
+      
+                <div class="grid-item">
+                  <div>
+                    <div class="key">Result </div>
+                    <div class="value">{{ entry.6 }}</div>
+                  </div>
+                  <div>
+                    <div class="key">Net PnL</div>
+                    <div class="value">{{ entry.9 }}</div>
+                  </div>
+                  <div>
+                    <div class="key"></div>
+                    <div class="value"></div>
+                  </div>
+                </div>
+
+              {% endfor %}
+            
+          {% endfor %}
+<!-- ********************************************************************************************** -->
+
 </body>
 </html>

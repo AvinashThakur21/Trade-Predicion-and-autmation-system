@@ -29,6 +29,91 @@ def get_data(stock_symbol,start_year,end_year=0):
         df[col] = df[col].round(1)
     return df
 
+def get_data2(stock_symbol,start_date,next_year): # end_date
+
+    print(start_date)
+    year,month,date = [int(x)for x in  '2023-04-01'.split('-')] # start_date
+    start_date = dt.datetime(year,month,date)
+    
+    #year,month,date = [int(x)for x in start_date.split('-')] # to use end date date change start_date to end_date and remove +1 in year next line
+    end_date = dt.datetime(year+next_year ,month,date)   # currently next 1 year from start date , 
+    
+    yfin.pdr_override()
+    df = pdr.get_data_yahoo(stock_symbol, start_date, end_date)
+    
+    #print(df.shape)
+    df = df.iloc[:,0:4] 
+    for col in df.columns:
+        df[col] = df[col].round(1)
+    return df
+
+
+def check_trade_status2(trade_list):
+    
+    updated_trade_list= []
+    updated_trade_list = [x for x in trade_list]
+    entry, stoploss, target, legin_date, legout_date =  tuple(trade_list)
+    start_date = legout_date
+    
+    df2 = get_data2('tcs.ns',start_date,1)
+    df2 = df2.iloc[1:,:]
+    df2.reset_index(inplace=True)
+    
+    for i in range(df2.shape[0]):
+        candle = df2.iloc[i,:]
+        candle_low = int(candle.loc['Low'])
+        candle_high = int(candle.loc['High'])
+        candle_open = int(candle.loc['Open'])
+        candle_close = int(candle.loc['Close'])
+        is_entry = False
+        status = 0 # upcoming 
+        entry_date = 0
+        exit_date = 0
+        
+        # entry and stoploss by same candle logic
+        if ( candle_low < entry ) & ( candle_low < stoploss ) & ( is_entry == False) :
+            status = 2 # sl
+            entry_date = candle.loc['Date']
+            exit_date = candle.loc['Date']
+            break
+
+        # entry logic
+        elif (candle_low  <= entry) & ( is_entry == False ):
+            is_entry = True
+            status = 1
+            entry_date = candle.loc['Date']
+             
+        # stoploss
+        elif candle_low <= stoploss:
+            status = 2
+            exit_date = candle.loc['Date']
+            break
+
+        # target
+        elif (candle_high >= target) & (is_entry == True):
+            
+            status = 3
+            exit_date = candle.loc['Date']
+            net_pnl
+            break
+            
+    net_pnl = 0 
+    capital = 100000 
+
+    quantity = 1000/( entry - stoploss )
+    afordabel_qun = capital/entry
+    buy_qun = round(min(quantity, afordabel_qun))
+    if (status == 2) :
+        net_pnl -= 1000
+    
+    elif status ==3 :
+        net_pnl = round(buy_qun * ( target - entry ),1)
+
+    
+    updated_trade_list.extend([ buy_qun,status,str(entry_date),str(exit_date),net_pnl])
+    return updated_trade_list
+
+
 
 def candle_diff(df):
     candle_type = []
@@ -170,6 +255,7 @@ def index_to_price(df,all_zone):
      
         lower_wick1 = df.iloc[all_zone[i][1]]['Low']
         upper_body1 = df.iloc[all_zone[i][1]]['Close']
+         
         for j in range(legin+1,legout):
             upper_body2 = df.iloc[j]['Close']
             upper_body3 = df.iloc[j]['Open']
@@ -180,8 +266,9 @@ def index_to_price(df,all_zone):
             if upper_body2 > upper_body1:
                 upper_body1 = upper_body2
     
-        target = upper_body1 - lower_wick1
-        dart_list.append([lower_wick1,upper_body1,target])
+        target = upper_body1 + (upper_body1 - lower_wick1 )
+        target = round(target,1)
+        dart_list.append([upper_body1,lower_wick1, target,all_zone[i][-2],all_zone[i][-1]])
    
         
     return dart_list

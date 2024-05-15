@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from  .functions import get_data, candle_diff, demand_zone_locator, index_to_price, trade_test, pl_summery
+from  .functions import get_data, candle_diff, demand_zone_locator, index_to_price, trade_test, pl_summery, get_data2, check_trade_status2
+
 # Create your views here.
 
 import datetime as dt
@@ -16,80 +17,46 @@ pd.options.plotting.backend = 'plotly'
 
 
 
-
-
-
-
-
-
-
-
-
 def home(request):
     context = {'a':1, 'b':2}
     return render(request,'home.html',context)
 
 
+# 20 script get all zone from 1 april 2024
+scripts = ['INFY.NS','TCS.NS','360ONE.NS', '5PAISA.NS', 'AARTIDRUGS.NS', 'AARTIIND.NS', 'AARTIPHARM.NS',
+          'AARTISURF.NS', 'AAVAS.NS', 'ABSLAMC.NS', 'ACC.NS', 'ACCELYA.NS', 'ACE.NS', 
+           'ACI.NS', 'ADANIENSOL.NS', 'ADANIENT.NS', 'AETHER.NS', 
+           'ADANIPORTS.NS', 'ADANIPOWER.NS', 'ADORWELD.NS', 'AEGISCHEM.NS']
+
 def give_me_zone(request):
 
-    overall_results = []
-    script= 'tcs.ns'
-
-
-    print(script,end='\t')
         
-    df = get_data(script,1990,2022)
-    
-    df = candle_diff(df)
-    df.reset_index(drop=True, inplace=True)
-    all_zone_index = demand_zone_locator(df)
-    
-    #all_zone,fig = plot_zone(df,all_zone_index)
-    all_zone = index_to_price(df,all_zone_index)
-    for i in all_zone:
+    all_stock_result = []
+    for script in scripts:
+        script = script.split('.')[0]
+        print(script.upper(),end='\t')
+        df = get_data2(script +'.NS','2023-04-01',1) # script
+        df = candle_diff(df)
+        df.reset_index(inplace=True)
         
-        i[2] = round(float(i[2]),2)
-    
-    train_candles = df.shape[0]
-    
-    # deploydataset
-    df =get_data(script,2022,2024)
-    
-    df = candle_diff(df)
-    df.reset_index(drop=True, inplace=True)
-    df.index = range(train_candles, train_candles + len(df))
-    
-    #update_fig(fig,index,open,high,close,low)
-    
-    all_results = trade_test(df,all_zone,3)
-    
-    loss,profit   = pl_summery(all_results)
-    #loss,profit   = (10,20)
-
-    overall_results.append([script,loss,profit])
-    print(loss,profit)
-
-
-
-
-
-    data = {}  # Initialize an empty dictionary
-
-    # Define your keys and values
-    keys = [script.split('.')[0]]
-    #ids = ['01id', '02id', '03id']
-    #values = [[1, 2, 3] for _ in range(len(ids))]  # Example values, you can replace this with your actual data
-
-    # Loop to populate the dictionary
-    for key in keys:
-        data['script'] = script 
-        data[key] = {}  # Initialize nested dictionary for each key
-        for i in range(len(all_zone)):
-            entry= all_zone[i][1]
-            sl = all_zone[i][0]
-            target = entry+ all_zone[i][2] 
-            data[key][key + str(i)] = [entry,sl,target]
-
-    
-    print(data)
-    return render(request,'home.html',context= data)
+        
+        all_zone_index = demand_zone_locator(df)
+        #all_zone,fig = plot_zone(df,all_zone_index)
+        all_zone = index_to_price(df,all_zone_index)
+        
+        
+        all_trade_result = []
+        for trade in all_zone:
+            trade_result = check_trade_status2(trade)
+            all_trade_result.append(trade_result)
+        #print(all_trade_result)
+        all_stock_result.append([script,all_trade_result])
+    context= dict(all_stock_result)
+    print(context)
+    return render(request,'home.html',{'context': context})
+''' context list like this
+{'INFY': [[1379.8, 1361.0, 1398.6, '2023-11-09', '2023-11-15', 0, '0', '0', 0],
+  [1293.3, 1262.2, 1324.4, '2023-06-23', '2023-06-30', 0, '0', '0', 0],
+  [1228.1, 1215.0, 1241.2, '2023-04-20', '2023-04-27', 0, '0', '0', 0]],
+ 'TCS': [[... so on 
+'''
