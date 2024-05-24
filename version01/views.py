@@ -14,6 +14,9 @@ import yfinance as yfin
 # graph primary setting 
 pyo.init_notebook_mode(connected=True)
 pd.options.plotting.backend = 'plotly'
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+
 
 
 
@@ -29,6 +32,8 @@ scripts = ['INFY.NS','TCS.NS','360ONE.NS', '5PAISA.NS', 'AARTIDRUGS.NS', 'AARTII
            'ADANIPORTS.NS', 'ADANIPOWER.NS', 'ADORWELD.NS', 'AEGISCHEM.NS']
 
 some_scripts = [ 'AAVAS.NS', 'ABSLAMC.NS']
+
+@login_required
 def give_me_zone(request,section):
     overall_list = []
         
