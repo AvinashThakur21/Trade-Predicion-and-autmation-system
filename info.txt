@@ -2,7 +2,9 @@
 2.*  Configre app wih django 
 3.* Create model ( only col ) , contraints , rel ,keys ... remaining 
 4.* Create home page view in app and redirect link their
-5. getting model output entry , sl and target and passing to home page -- first get history 
+5.* getting model output entry , sl and target and passing to home page 
+6. Section url mapping handle _/upcoming working bu _/history/upcoming not working same for other combo 
+learn django 
 
  . Complte Model contraints , rel ,keys ... remaining 
 

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from  .functions import get_data, candle_diff, demand_zone_locator, index_to_price, trade_test, pl_summery, get_data2, check_trade_status2
+from  .functions2 import self_get_data, self_candle_diff, self_demand_zone_locator,   self_check_trade_status
 
 # Create your views here.
 
@@ -28,46 +28,55 @@ scripts = ['INFY.NS','TCS.NS','360ONE.NS', '5PAISA.NS', 'AARTIDRUGS.NS', 'AARTII
            'ACI.NS', 'ADANIENSOL.NS', 'ADANIENT.NS', 'AETHER.NS', 
            'ADANIPORTS.NS', 'ADANIPOWER.NS', 'ADORWELD.NS', 'AEGISCHEM.NS']
 
+some_scripts = [ 'AAVAS.NS', 'ABSLAMC.NS']
 def give_me_zone(request,section):
-
+    overall_list = []
         
     all_stock_result = []
     all_history_trade = []
     all_open_trade = []
     all_upcoming_trade =[]
-    for script in scripts:
-        script = script.split('.')[0]
-        print(script.upper(),end='\t')
-        df = get_data2(script +'.NS','2023-04-01',1) # script
-        df = candle_diff(df)
-        df.reset_index(inplace=True)
+    for script in some_scripts:
+
+        try:
+            script =  script.split('.')[0]
+            print(script.upper(),end='\t')
+            row_df = self_get_data(script,(2015,4,1),(2024,4,1)) # script
+            df = self_candle_diff(row_df)
+            all_zone ,all_zone_index = self_demand_zone_locator(df,zone_count=5)
+        
+            all_results = []
+            for zone in all_zone:
+                result = self_check_trade_status( script,zone)
+                all_results.append(result)
         
         
-        all_zone_index = demand_zone_locator(df)
-        #all_zone,fig = plot_zone(df,all_zone_index)
-        all_zone = index_to_price(df,all_zone_index)
+            
+            all_stock_result.append([script,all_results])
+        except:
+            print("**********")
+            #overall_list.append(['*****'])
+        print()
         
         
-        all_trade_result = []
+   
         history_trade = []
         open_trade = []
         upcoming_trade =[]
   
-        for trade in all_zone:
-            trade_result = check_trade_status2(trade)
-            all_trade_result.append(trade_result)
+       
             
         #print(all_trade_result)
-        for trade in all_trade_result:
+        for trade in all_results:
             if trade[6] == 0 :
-                upcoming_trade.append(trade_result)
+                upcoming_trade.append(trade)
             elif trade[6] == 1:
-                open_trade.append(trade_result)
+                open_trade.append(trade)
             else:
-                history_trade.append(trade_result)
+                history_trade.append(trade)
 
 
-        all_stock_result.append([script,all_trade_result])
+        all_stock_result.append([script,all_results])
         all_upcoming_trade.append([script,upcoming_trade])
         all_open_trade.append([script,open_trade])
         all_history_trade.append([script,history_trade])

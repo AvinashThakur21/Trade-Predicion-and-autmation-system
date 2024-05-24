@@ -13,10 +13,16 @@
 <body>
     
     <header>
-        <div id="main_button">
-            <label for="auto_trading">Auto_Trading</label>
-            <button id="auto_trading" name="auto_trading"></button>
-            </div>
+          <div id="main_button">
+              <label for="auto_trading">Auto_Trading</label>
+              <label class="switch">
+                <input type="checkbox" id="toggle">
+                <span class="slider"></span>
+              </label>
+              <!-- <button id="auto_trading" name="auto_trading"></button> -->
+          </div>
+
+          
         
             <div id="user_account">
                 <img href="" />
@@ -28,9 +34,9 @@
     </header>
 
     <div id="link_tabs"> 
-        <a href="history" id="history" name="history">History</a>
-        <a href="ongoing" id="ongoing" name="ongoing">Ongoing</a>
-        <a href="upcoming" id="upcoming" name="upcoming">Upcoming</a>
+        <a href="/history" id="history" name="history">History</a>
+        <a href="/.." id="ongoing" name="ongoing">Ongoing</a>
+        <a href="/upcoming" id="upcoming" name="upcoming">Upcoming</a>
     </div>
 
   
@@ -42,70 +48,7 @@
         <div class="grid-item header">Timing</div>
         <div class="grid-item header">Result</div>
         
-        <div class="grid-item">
-          <div>
-            <div class="key">Script</div>
-            <div class="value">INFY</div>
-          </div>
-          <div>
-            <div class="key"></div>
-            <div class="value"></div>
-          </div>
-          <div>
-            <div class="key"></div>
-            <div class="value"></div>
-          </div>
-        </div>
-
-        <div class="grid-item">
-            <div>
-              <div class="key">Entry</div>
-              <div class="value">1379.8</div>
-            </div>
-            <div>
-              <div class="key">Stoploss</div>
-              <div class="value">1361.0</div>
-            </div>
-            <div>
-              <div class="key">Target</div>
-              <div class="value">1398.6</div>
-            </div>
-            <div>
-              <div class="key">Quantity</div>
-              <div class="value">26</div>
-            </div>
-          </div>
-
-          <div class="grid-item">
-            <div>
-              <div class="key">Current Status</div>
-              <div class="value">0</div>
-            </div>
-            <div>
-              <div class="key">Entry Date</div>
-              <div class="value">2023-11-09</div>
-            </div>
-            <div>
-              <div class="key">Exit Date</div>
-              <div class="value">2023-11-15</div>
-            </div>
-          </div>
-
-
-          <div class="grid-item">
-            <div>
-              <div class="key">Result </div>
-              <div class="value">0</div>
-            </div>
-            <div>
-              <div class="key">Net PnL</div>
-              <div class="value">0</div>
-            </div>
-            <div>
-              <div class="key"></div>
-              <div class="value"></div>
-            </div>
-          </div>
+        
 <!-- ********************************************************************************************** -->
           {% for script, entries in context.items %}
             

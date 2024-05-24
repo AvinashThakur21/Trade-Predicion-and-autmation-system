@@ -33,7 +33,7 @@ body header div{
 #main_button label{
     margin-top:10%;
     margin-bottom: 10%;
-    margin-left:2%;
+    /* margin-left:2%; */
 }
 #user_account{
 
@@ -132,3 +132,92 @@ body header div{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
 }
+
+
+/* dashfkdjas */
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    margin: right 10%;
+    width: 60px;
+    height: 34px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    
+    margin-left: 10px;
+    width: 60px;
+     
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+  
+/* link pritifiar for target all link of page */
+
+/* Base styles for all links */
+a {
+    color: #007BFF; /* Bootstrap primary color */
+    text-decoration: none; /* Remove underline */
+    font-weight: 500; /* Slightly bolder text */
+    transition: color 0.3s ease, text-shadow 0.3s ease; /* Smooth transition for color and shadow */
+}
+
+/* Hover effect */
+a:hover {
+    color: #0056b3; /* Darker shade of blue */
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+/* Focus effect for accessibility */
+a:focus {
+    outline: 2px dashed #0056b3; /* Dashed outline */
+    outline-offset: 2px; /* Space between outline and element */
+}
+
+/* Visited links */
+a:visited {
+    color: #6610f2;
