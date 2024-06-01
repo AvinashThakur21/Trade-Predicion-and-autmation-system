@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from  .functions2 import self_get_data, self_candle_diff, self_demand_zone_locator,   self_check_trade_status
 
 # Create your views here.
@@ -31,7 +31,7 @@ scripts = ['INFY.NS','TCS.NS','360ONE.NS', '5PAISA.NS', 'AARTIDRUGS.NS', 'AARTII
            'ACI.NS', 'ADANIENSOL.NS', 'ADANIENT.NS', 'AETHER.NS', 
            'ADANIPORTS.NS', 'ADANIPOWER.NS', 'ADORWELD.NS', 'AEGISCHEM.NS']
 
-some_scripts = [ 'AAVAS.NS', 'ABSLAMC.NS']
+some_scripts = [ 'AAVAS.NS', 'ABSLAMC.NS','INFY.NS','TCS.NS','360ONE.NS', '5PAISA.NS']
 
 @login_required
 def give_me_zone(request,section):
@@ -46,7 +46,7 @@ def give_me_zone(request,section):
         try:
             script =  script.split('.')[0]
             print(script.upper(),end='\t')
-            row_df = self_get_data(script,(2015,4,1),(2024,4,1)) # script
+            row_df = self_get_data(script,(2015,4,1),(2023,4,1)) # script
             df = self_candle_diff(row_df)
             all_zone ,all_zone_index = self_demand_zone_locator(df,zone_count=5)
         
