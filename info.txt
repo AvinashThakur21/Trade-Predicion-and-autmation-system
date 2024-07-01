@@ -11,3 +11,10 @@ learn django
 
 what is flex: 0 0; do ?
 
+# 1 jun 
+1. fix on off button 
+create user setting model and fetch details form there 
+field - username , api key, auto trading - on / off
+filter trade by date of ragistration user, 
+
+2. chagne result num to cat

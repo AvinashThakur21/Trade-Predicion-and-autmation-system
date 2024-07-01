@@ -31,7 +31,8 @@ scripts = ['INFY.NS','TCS.NS','360ONE.NS', '5PAISA.NS', 'AARTIDRUGS.NS', 'AARTII
            'ACI.NS', 'ADANIENSOL.NS', 'ADANIENT.NS', 'AETHER.NS', 
            'ADANIPORTS.NS', 'ADANIPOWER.NS', 'ADORWELD.NS', 'AEGISCHEM.NS']
 
-some_scripts = [ 'AAVAS.NS', 'ABSLAMC.NS','INFY.NS','TCS.NS','360ONE.NS', '5PAISA.NS']
+some_scripts = [ 'AAVAS.NS', 'ABSLAMC.NS','INFY.NS','TCS.NS','360ONE.NS', '5PAISA.NS','AARTIDRUGS.NS', 'AARTIIND.NS', 'AARTIPHARM.NS',
+          'AARTISURF.NS', 'AAVAS.NS', 'ABSLAMC.NS', 'ACC.NS','ADANIPOWER.NS', 'ADORWELD.NS', 'AEGISCHEM.NS']
 
 @login_required
 def give_me_zone(request,section):
@@ -46,9 +47,9 @@ def give_me_zone(request,section):
         try:
             script =  script.split('.')[0]
             print(script.upper(),end='\t')
-            row_df = self_get_data(script,(2015,4,1),(2023,4,1)) # script
+            row_df = self_get_data(script,(2020,4,1),(2024,1,1)) # script
             df = self_candle_diff(row_df)
-            all_zone ,all_zone_index = self_demand_zone_locator(df,zone_count=5)
+            all_zone ,all_zone_index = self_demand_zone_locator(df,zone_count=1)
         
             all_results = []
             for zone in all_zone:
@@ -70,14 +71,25 @@ def give_me_zone(request,section):
         upcoming_trade =[]
   
        
-            
+        
         #print(all_trade_result)
         for trade in all_results:
+            
             if trade[6] == 0 :
+                trade[6] = 'Waiting for Entry'
                 upcoming_trade.append(trade)
             elif trade[6] == 1:
+                trade[6] = 'Open Trade'
                 open_trade.append(trade)
             else:
+                if int(trade[7].split(' ')[0].split('-')[0]) < 2024:
+                    continue
+
+                
+                if trade[6] == 2:
+                    trade[6] = 'Stoploss'
+                elif trade[6] == 3:
+                    trade[6] = 'Target'
                 history_trade.append(trade)
 
 

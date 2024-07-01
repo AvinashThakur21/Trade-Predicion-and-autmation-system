@@ -208,8 +208,8 @@ def index_to_price(df,all_zone):
             if upper_body2 > upper_body1:
                 upper_body1 = upper_body2
     
-        target = upper_body1 + (upper_body1 - lower_wick1 )
-        target = round(target,1)
+        target = upper_body1 + (3 * (upper_body1 - lower_wick1 ))
+        target = round(target,1) 
         dart_list.append([upper_body1,lower_wick1, target,all_zone[i][-2],all_zone[i][-1]])
    
         
@@ -393,6 +393,6 @@ def self_check_trade_status(stock_name,trade_list):
     
     updated_trade_list.extend([buy_qun,status,str(entry_date),str(exit_date),net_pnl])
     return updated_trade_list
-
+ 
         
 
